@@ -29,13 +29,13 @@ public class ValidationRequestFactory extends DeviceRequestFactory {
                 }
             });
         }
-        return new ValidationRequest(Request.Method.POST, getUrl(), listener, errorListener);
+        return new ValidationRequest(getUrl(), listener, errorListener);
     }
 
     private class ValidationRequest extends StringRequest {
 
-        public ValidationRequest(int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-            super(method, url, listener, errorListener);
+        public ValidationRequest(String url, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+            super(Request.Method.POST, url, listener, errorListener);
         }
 
         @Override

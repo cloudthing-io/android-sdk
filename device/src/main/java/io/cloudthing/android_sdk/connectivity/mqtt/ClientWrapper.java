@@ -7,10 +7,15 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import io.cloudthing.android_sdk.data.ICloudThingMessage;
+
 /**
  * Created by kleptoman on 14.09.16.
  */
 public class ClientWrapper {
+
+    private static final int QUALITY_OF_SERVICE = 0;
+    private static final boolean RETAINED = false;
 
     private final MqttClient client;
     private MqttConnectOptions connOpts;
@@ -43,6 +48,10 @@ public class ClientWrapper {
 
     public void unsubscribe(String topic) throws MqttException {
         this.client.unsubscribe(topic);
+    }
+
+    public void publish(String topic, ICloudThingMessage message) throws MqttException {
+        this.client.publish(topic, message.toBytes(), QUALITY_OF_SERVICE, RETAINED);
     }
 
     public boolean isConnected() {

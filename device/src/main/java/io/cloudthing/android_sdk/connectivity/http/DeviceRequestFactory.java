@@ -106,6 +106,10 @@ public abstract class DeviceRequestFactory {
         data.putData(dataId, dataValue);
     }
 
+    public Map<String, String> getData() {
+        return data.getData();
+    }
+
     protected class SimpleDataRequest extends JsonObjectRequest {
 
         public SimpleDataRequest(String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {

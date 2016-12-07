@@ -17,22 +17,31 @@ public class HttpRequestQueue {
     private RequestQueue requestQueue;
 
     public static HttpRequestQueue getInstance(Context context) {
-        if (instance == null) {
-            instance = new HttpRequestQueue(context);
+        synchronized (HttpRequestQueue.class) {
+            if (instance == null) {
+                instance = new HttpRequestQueue(context);
+            }
         }
         return instance;
     }
 
     private HttpRequestQueue(Context context) {
         ctx = context;
-        requestQueue = getRequestQueue();
     }
 
     public RequestQueue getRequestQueue() {
-        if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
+        synchronized (HttpRequestQueue.class) {
+            if (requestQueue == null) {
+                requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
+            }
         }
         return requestQueue;
+    }
+
+    public void setRequestQueue(RequestQueue requestQueue) {
+        synchronized (HttpRequestQueue.class) {
+            this.requestQueue = requestQueue;
+        }
     }
 
     public <T> void addToRequestQueue(Request<T> req) {
