@@ -1,5 +1,6 @@
 package io.cloudthing.android_sdk.data;
 
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
 public final class DataPayload implements ICloudThingMessage {
 
     private static final String BODY_TEMPLATE = "{\"r\":[%s]}";
-    private static final String DATA_OBJ_TEMPLATE = "{'k':'%s','v':%s}";
+    private static final String DATA_OBJ_TEMPLATE = "{\"k\":\"%s\",\"v\":%s}";
 
     private Map<String, String> data = new HashMap<>();
 
@@ -50,14 +51,14 @@ public final class DataPayload implements ICloudThingMessage {
     }
 
     public byte[] toBytes() {
-        return this.toString().getBytes();
+        return this.toString().getBytes(Charset.forName("UTF-8"));
     }
 
     private String getFormattedValue(String value) {
         if (isNumeric(value)) {
             return value;
         }
-        return String.format("'%s'", value);
+        return String.format("\"%s\"", value);
     }
 
     private boolean isNumeric(String s) {

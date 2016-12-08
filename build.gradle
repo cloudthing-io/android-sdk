@@ -19,7 +19,7 @@ allprojects {
     }
 
     group = 'io.cloudthing.sdk'
-    version = '0.1.0-SNAPSHOT'
+    version = '0.1.1'
 
     ext {
         isLibrary = false

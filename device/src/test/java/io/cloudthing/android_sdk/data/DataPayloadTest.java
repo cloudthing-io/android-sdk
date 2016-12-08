@@ -71,7 +71,7 @@ public class DataPayloadTest {
 
     @Test(expected = IllegalStateException.class)
     public void toStringTest() throws Exception {
-        String EXPECTED_ONE = "{\"r\":[{'k':'dataId','v':'dataValue'}]}";
+        String EXPECTED_ONE = "{\"r\":[{\"k\":\"dataId\",\"v\":\"dataValue\"}]}";
         DataPayload data = new DataPayload();
         data.putData("dataId", "dataValue");
         assertEquals(EXPECTED_ONE, data.toString());
@@ -84,13 +84,13 @@ public class DataPayloadTest {
         data.putData("dataId3", "0.1");
         data.putData("newDataId", "dataValue");
         String output = data.toString();
-        assertTrue(output.contains("{'k':'dataId','v':12}"));
-        assertTrue(output.contains("{'k':'dataId1','v':12.1}"));
-        assertTrue(output.contains("{'k':'dataId2','v':12.}"));
-        assertTrue(output.contains("{'k':'dataId3','v':0.1}"));
-        assertTrue(output.contains("{'k':'dataId4','v':.2}"));
-        assertTrue(output.contains("{'k':'newDataId','v':'dataValue'}"));
-        assertTrue(output.matches("\\{\\\"r\\\":\\[(\\{'k':'\\w+','v':([0-9\\.]+|'\\w+')\\},?)+\\]\\}"));
+        assertTrue(output.contains("{\"k\":\"dataId\",\"v\":12}"));
+        assertTrue(output.contains("{\"k\":\"dataId1\",\"v\":12.1}"));
+        assertTrue(output.contains("{\"k\":\"dataId2\",\"v\":12.}"));
+        assertTrue(output.contains("{\"k\":\"dataId3\",\"v\":0.1}"));
+        assertTrue(output.contains("{\"k\":\"dataId4\",\"v\":.2}"));
+        assertTrue(output.contains("{\"k\":\"newDataId\",\"v\":\"dataValue\"}"));
+        assertTrue(output.matches("\\{\\\"r\\\":\\[(\\{\\\"k\\\":\\\"\\w+\\\",\\\"v\\\":([0-9\\.]+|\\\"\\w+\\\")\\},?)+\\]\\}"));
 
         data.clearData();
         data.toString();
